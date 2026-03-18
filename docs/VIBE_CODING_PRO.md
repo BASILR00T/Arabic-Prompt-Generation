@@ -10,7 +10,7 @@ The app outputs a JSON object with:
 
 ### Phase 1: Read
 Before changing anything, the downstream agent must:
-- Read `what to build.md` (product intent)
+- Read `README.md` + `docs/` (product intent + operational constraints)
 - Inspect the repo (`src/`) and relevant docs (`docs/`)
 - Identify architecture patterns, state/data flows, and where bugs/risks are likely to appear
 - Prioritize reading that matches the selected **Focus Area**

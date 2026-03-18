@@ -12,7 +12,7 @@
 ## Project structure (high signal)
 - `src/App.jsx`: Main single-page UI + Gemini request/response handling.
 - `src/index.css`: Tailwind + project theme + shared styles.
-- `what to build.md`: Product spec and UX requirements.
+- `README.md` + `docs/`: Product spec and UX requirements.
 
 ## How the Gemini call works
 - `src/App.jsx` function `fetchEnhancedPrompt()`:
