@@ -45,3 +45,7 @@ Quick Templates (the “مكتبة الأوامر السريعة” cards) are d
 - Source of truth: `src/config/vibeModeConfig.json`
 - Each template declares which `promptTypes` it belongs to (so the library is mode-accurate).
 
+## Contributing & support
+
+See: [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) for how to run locally, make safe changes, and submit issues/PRs.
+

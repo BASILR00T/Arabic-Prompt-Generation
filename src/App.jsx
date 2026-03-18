@@ -15,6 +15,7 @@ import geminiContractDoc from '../docs/GEMINI_PROMPT_CONTRACT.md?raw';
 import troubleshootingDoc from '../docs/TROUBLESHOOTING.md?raw';
 import uxGuideDoc from '../docs/UX_GUIDE.md?raw';
 import vibeCodingProDoc from '../docs/VIBE_CODING_PRO.md?raw';
+import contributingDoc from '../docs/CONTRIBUTING.md?raw';
 
 import vibeModeConfig from './config/vibeModeConfig.json';
 
@@ -1237,6 +1238,7 @@ export default function App() {
       {(() => {
         const docsItems = [
           { id: "DEVELOPMENT", label: "التطوير", content: developmentDoc },
+          { id: "CONTRIBUTING", label: "المساهمة والدعم", content: contributingDoc },
           { id: "GEMINI_PROMPT_CONTRACT", label: "عقد JSON لمخرجات Gemini", content: geminiContractDoc },
           { id: "TROUBLESHOOTING", label: "حل المشاكل", content: troubleshootingDoc },
           { id: "UX_GUIDE", label: "دليل الاستخدام", content: uxGuideDoc },
@@ -1254,7 +1256,7 @@ export default function App() {
                   توثيق المنصة
                 </h2>
                 <p className="text-slate-500 text-base sm:text-lg mt-3 leading-relaxed">
-                  قراءة سريعة + أمثلة + تعليمات تكامل.
+                  شغّل المشروع محليًا، افهم عقد المخرجات، ثم شارك في التحسين بأمان عبر وثائق واضحة واتجاه نص مناسب.
                 </p>
               </div>
 
@@ -1314,21 +1316,21 @@ export default function App() {
                           <h3 className="text-lg font-black mt-5 mb-3">{children}</h3>
                         ),
                         p: ({ children }) => (
-                          <p className="my-3">{children}</p>
+                          <p className="my-3 text-right">{children}</p>
                         ),
                         ul: ({ children }) => (
-                          <ul className="list-disc pr-5 my-3">{children}</ul>
+                          <ul className="list-disc pr-5 my-3 text-right">{children}</ul>
                         ),
                         ol: ({ children }) => (
-                          <ol className="list-decimal pr-5 my-3">{children}</ol>
+                          <ol className="list-decimal pr-5 my-3 text-right">{children}</ol>
                         ),
                         li: ({ children }) => (
-                          <li className="my-1">{children}</li>
+                          <li className="my-1 text-right">{children}</li>
                         ),
                         pre: ({ children }) => (
                           <pre
                             dir="ltr"
-                            className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-4 overflow-x-auto my-4"
+                            className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-4 overflow-x-auto my-4 text-left"
                           >
                             {children}
                           </pre>
@@ -1338,7 +1340,7 @@ export default function App() {
                             return (
                               <code
                                 dir="ltr"
-                                className="px-2 py-0.5 rounded-xl bg-white/[0.02] border border-white/[0.05] font-mono text-[12px]"
+                                className="px-2 py-0.5 rounded-xl bg-white/[0.02] border border-white/[0.05] font-mono text-[12px] text-left"
                               >
                                 {children}
                               </code>
@@ -1347,7 +1349,7 @@ export default function App() {
                           return (
                             <code
                               dir="ltr"
-                              className="font-mono text-[12px] text-slate-200"
+                              className="font-mono text-[12px] text-slate-200 text-left"
                             >
                               {children}
                             </code>
@@ -1591,9 +1593,9 @@ ${masterPrompt}
 
             <button
               type="button"
-              onClick={(e) => e.preventDefault()}
               aria-label="GitHub"
               className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center hover:bg-white/[0.08] transition-all"
+              onClick={() => window.open("https://github.com/BASILR00T/Arabic-Prompt-Generation", "_blank", "noopener,noreferrer")}
             >
               <Github size={18} />
             </button>

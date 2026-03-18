@@ -1,0 +1,16 @@
+{
+  "name": "Arabic Prompt Engineering Laboratory",
+  "short_name": "Arabic Prompt",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#863bff",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ]
+}
+
