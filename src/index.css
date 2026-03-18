@@ -72,6 +72,17 @@ body {
   animation: float 6s ease-in-out infinite;
 }
 
+/* Mobile UX: reduce constant motion & keep interactions snappy */
+.mobile-ux .animate-float {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float {
+    animation: none !important;
+  }
+}
+
 /* Terminal Styling */
 .terminal-glow {
   box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.2);

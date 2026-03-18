@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   Zap, Sparkles, Languages, ChevronRight, Copy, Check,
   RefreshCcw, Terminal, Cpu, Layers, ShieldCheck,
@@ -391,6 +391,10 @@ var ProcessingOverlay = () => (
  */
 
 export default function App() {
+  const prefersReducedMotion = useReducedMotion();
+  const isSmallScreen =
+    typeof window !== "undefined" && window.matchMedia("(max-width: 640px)").matches;
+
   const [view, setView] = useState(() => {
     try {
       if (typeof window !== "undefined" && window.location.pathname.startsWith("/mobile")) {
@@ -510,14 +514,23 @@ export default function App() {
     }));
   }, [promptType]);
 
-  const revealVariants = {
-    hidden: { opacity: 0, y: 18 },
-    show: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.45, delay: i * 0.08, ease: "easeOut" },
-    }),
-  };
+  const revealVariants = prefersReducedMotion || isSmallScreen
+    ? {
+        hidden: { opacity: 0, y: 0 },
+        show: () => ({
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0 },
+        }),
+      }
+    : {
+        hidden: { opacity: 0, y: 18 },
+        show: (i) => ({
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.45, delay: i * 0.08, ease: "easeOut" },
+        }),
+      };
 
   const handleGenerate = async (templatePrompt = null) => {
     const rawInput = templatePrompt || input;
@@ -1547,7 +1560,7 @@ ${masterPrompt}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: prefersReducedMotion ? 0 : isSmallScreen ? 0.22 : 0.3 }}
           >
             {view === "landing"
               ? landingPage
