@@ -406,6 +406,9 @@ export default function App() {
     return "landing";
   });
 
+  const shouldReduceAnimations =
+    prefersReducedMotion || isSmallScreen || view === "mobile_app";
+
   const isMobileRoutePath =
     typeof window !== "undefined" && window.location.pathname.startsWith("/mobile");
   const goWorkspace = () => {
@@ -514,13 +517,13 @@ export default function App() {
     }));
   }, [promptType]);
 
-  const revealVariants = prefersReducedMotion || isSmallScreen
+  const revealVariants = shouldReduceAnimations
     ? {
         hidden: { opacity: 0, y: 0 },
-        show: () => ({
+        show: (i) => ({
           opacity: 1,
           y: 0,
-          transition: { duration: 0 },
+          transition: { duration: prefersReducedMotion ? 0 : 0.12, delay: 0, ease: "easeOut" },
         }),
       }
     : {
@@ -1560,7 +1563,9 @@ ${masterPrompt}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: prefersReducedMotion ? 0 : isSmallScreen ? 0.22 : 0.3 }}
+            transition={{
+              duration: prefersReducedMotion ? 0 : shouldReduceAnimations ? 0.12 : 0.3,
+            }}
           >
             {view === "landing"
               ? landingPage
