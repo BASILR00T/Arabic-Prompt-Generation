@@ -649,7 +649,7 @@ export default function App() {
           transition={{ delay: 0.4 }}
           className="text-slate-500 text-xl max-w-2xl leading-relaxed mb-16 font-medium selection:bg-indigo-500/30"
         >
-          المنصة الأولى والوحيدة المخصصة لهندسة الأوامر باللغة العربية. حول أفكارك إلى برومبتات تقنية عالمية المستوى بسرعة الذكاء الاصطناعي.
+          حوّل أفكارك بالعربية إلى برومبتات هندسية دقيقة ومهيكلة—جاهزة لأي وكيل برمجي للتنفيذ بسرعة وثقة.
         </motion.p>
 
         <motion.div
