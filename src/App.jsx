@@ -1486,6 +1486,40 @@ ${masterPrompt}
               </button>
             </div>
 
+            {/* Mobile nav: allow switching between sections/views */}
+            <div className="flex lg:hidden items-center gap-2 text-slate-600">
+              <button
+                type="button"
+                aria-label="Discovery"
+                onClick={() => setView("landing")}
+                className={`w-9 h-9 rounded-xl flex items-center justify-center hover:bg-white/[0.06] transition-all ${
+                  view === "landing" ? "text-white" : "text-slate-400"
+                }`}
+              >
+                <Search size={16} />
+              </button>
+              <button
+                type="button"
+                aria-label="Workspace"
+                onClick={goWorkspace}
+                className={`w-9 h-9 rounded-xl flex items-center justify-center hover:bg-white/[0.06] transition-all ${
+                  view === "app" || view === "mobile_app" ? "text-white" : "text-slate-400"
+                }`}
+              >
+                <Laptop size={16} />
+              </button>
+              <button
+                type="button"
+                aria-label="Integration"
+                onClick={() => setView("integration")}
+                className={`w-9 h-9 rounded-xl flex items-center justify-center hover:bg-white/[0.06] transition-all ${
+                  view === "integration" ? "text-white" : "text-slate-400"
+                }`}
+              >
+                <Monitor size={16} />
+              </button>
+            </div>
+
             <div className="w-[1px] h-6 bg-white/10 hidden sm:block"></div>
 
             <button
