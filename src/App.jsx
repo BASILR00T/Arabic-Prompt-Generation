@@ -57,8 +57,9 @@ const fetchEnhancedPrompt = async (input, type, options) => {
 
     return data;
   } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
     throw new Error(
-      "Failed to call /api/vibe/generate. For local testing, run the serverless endpoints (e.g. `vercel dev`) or deploy the API."
+      `Failed to call /api/vibe/generate: ${msg}. For local testing, run the serverless endpoints (e.g. \`vercel dev\`) or deploy the API.`
     );
   }
 };
@@ -520,7 +521,7 @@ export default function App() {
   const revealVariants = shouldReduceAnimations
     ? {
         hidden: { opacity: 0, y: 0 },
-        show: (i) => ({
+        show: () => ({
           opacity: 1,
           y: 0,
           transition: { duration: prefersReducedMotion ? 0 : 0.12, delay: 0, ease: "easeOut" },
