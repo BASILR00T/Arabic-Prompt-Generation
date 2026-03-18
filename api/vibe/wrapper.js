@@ -1,10 +1,5 @@
 function buildWrapper({ ide, masterPrompt }) {
-  const IDE_ALLOWLIST = new Set([
-    "cursor",
-    "claude_code",
-    "vscode_continue",
-    "generic"
-  ]);
+  const IDE_ALLOWLIST = new Set(["cursor", "claude_code", "vscode_continue", "generic"]);
 
   if (!IDE_ALLOWLIST.has(ide)) ide = "generic";
 
@@ -18,7 +13,7 @@ Rules:
 3) If you ask clarifying questions, ask first and do not start implementation until the user answers.
 4) After applying changes, run the verification commands/tests listed in the master prompt.
 5) Do NOT force Arabic UI/localization unless it is explicitly requested by the user.
-
+    
 MASTER PROMPT:
 """
 ${masterPrompt}
@@ -32,7 +27,7 @@ Rules:
 2) If critical details are missing, ask clarifying questions and STOP until answered.
 3) Implement with minimal non-regressive changes.
 4) Run the verification commands/tests listed in the master prompt.
-
+    
 MASTER PROMPT:
 """
 ${masterPrompt}
@@ -45,7 +40,7 @@ Rules:
 1) Use the master prompt below as the controlling instruction (do not deviate from the required workflow).
 2) Ask clarifying questions and STOP when needed.
 3) Propose and apply code changes, then verify using the commands/tests in the master prompt.
-
+    
 MASTER PROMPT:
 """
 ${masterPrompt}
@@ -125,5 +120,5 @@ async function handler(req, res) {
   }
 }
 
-module.exports = handler;
+export default handler;
 

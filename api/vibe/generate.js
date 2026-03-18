@@ -14,7 +14,7 @@ const ALLOWED_GOALS = new Set([
   "polish",
   "plan",
   "execute",
-  "improve"
+  "improve",
 ]);
 
 function parseAllowedOrigins() {
@@ -253,7 +253,9 @@ async function handler(req, res) {
     }
 
     if (typeof input !== "string" || !input.trim()) {
-      res.status(400).json({ error: "Missing or empty `input` (Arabic requirements)." });
+      res.status(400).json({
+        error: "Missing or empty `input` (Arabic requirements).",
+      });
       return;
     }
 
@@ -261,11 +263,12 @@ async function handler(req, res) {
     // That key can hit rate limits, so self-hosters should set their own key:
     // - `GEMINI_API_KEY` (recommended for server-side usage)
     // - fallback: `VITE_GEMINI_API_KEY` (used in existing local/dev docs)
-    const API_KEY = process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY || "";
+    const API_KEY =
+      process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY || "";
     if (!API_KEY) {
       res.status(500).json({
         error:
-          "Missing Gemini API key. Set `GEMINI_API_KEY` (recommended) or `VITE_GEMINI_API_KEY` in Vercel env vars."
+          "Missing Gemini API key. Set `GEMINI_API_KEY` (recommended) or `VITE_GEMINI_API_KEY` in Vercel env vars.",
       });
       return;
     }
@@ -282,7 +285,7 @@ async function handler(req, res) {
     const systemPrompt = buildSystemPrompt({
       promptType,
       options,
-      modeLabel
+      modeLabel,
     });
 
     const model = "gemini-2.5-flash-lite";
@@ -297,9 +300,9 @@ async function handler(req, res) {
           systemInstruction: { parts: [{ text: systemPrompt }] },
           generationConfig: {
             responseMimeType: "application/json",
-            temperature: 0.7
-          }
-        })
+            temperature: 0.7,
+          },
+        }),
       }
     );
 
@@ -307,7 +310,7 @@ async function handler(req, res) {
 
     if (!response.ok) {
       res.status(response.status).json({
-        error: data?.error?.message || response.statusText
+        error: data?.error?.message || response.statusText,
       });
       return;
     }
@@ -338,7 +341,7 @@ async function handler(req, res) {
     ) {
       res.status(500).json({
         error:
-          "JSON contract validation failed: expected {englishPrompt, arabicSummary} strings."
+          "JSON contract validation failed: expected {englishPrompt, arabicSummary} strings.",
       });
       return;
     }
@@ -346,10 +349,10 @@ async function handler(req, res) {
     res.status(200).json(parsed);
   } catch (err) {
     res.status(500).json({
-      error: err?.message || "Unknown error"
+      error: err?.message || "Unknown error",
     });
   }
 }
 
-module.exports = handler;
+export default handler;
 
