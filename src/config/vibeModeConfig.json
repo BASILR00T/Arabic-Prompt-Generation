@@ -1,0 +1,156 @@
+{
+  "techStacksByMode": {
+    "coding": [
+      "TypeScript / Next.js 15",
+      "Python / FastAPI",
+      "SwiftUI / iOS 18",
+      "Rust / Backend",
+      "C++ / High Performance",
+      "Java / Spring Boot",
+      "React Native / Expo"
+    ],
+    "image": [
+      "Figma / UI Design",
+      "Web / HTML + SVG",
+      "Stable Diffusion / Image Generation",
+      "Midjourney / Stylized Imagery",
+      "Branding / Visual Identity"
+    ],
+    "writing": [
+      "English Writing / Docs & Blog",
+      "Creative Story Mode",
+      "Marketing Copy / Brand Voice",
+      "Academic / Technical Writing",
+      "Translation / Localization"
+    ],
+    "general": [
+      "General AI / Any Agent",
+      "Research Agent / Knowledge Builder",
+      "System Architecture / Planner",
+      "Security & Testing / Auditor"
+    ]
+  },
+  "goalsByMode": {
+    "coding": [
+      { "id": "implementation", "ar": "تطوير" },
+      { "id": "logic-fix", "ar": "تدقيق" },
+      { "id": "optimize", "ar": "هدف نهائي" }
+    ],
+    "image": [
+      { "id": "concept", "ar": "فكرة" },
+      { "id": "design", "ar": "تصميم" },
+      { "id": "refine", "ar": "تحسين" }
+    ],
+    "writing": [
+      { "id": "draft", "ar": "مسودة" },
+      { "id": "edit", "ar": "تعديل" },
+      { "id": "polish", "ar": "صقل" }
+    ],
+    "general": [
+      { "id": "plan", "ar": "خطة" },
+      { "id": "execute", "ar": "تنفيذ" },
+      { "id": "improve", "ar": "تحسين" }
+    ]
+  },
+  "focusByMode": {
+    "coding": [
+      { "id": "Logic", "label": "منطق Logic" },
+      { "id": "UI", "label": "واجهة المستخدم UI" },
+      { "id": "Security", "label": "تحصين النظام Security" },
+      { "id": "Optimization", "label": "تحسين الأداء Optimization" },
+      { "id": "Testing", "label": "الجودة والبحث Testing" },
+      { "id": "Architecture", "label": "هيكلة البرمجيات Architecture" }
+    ],
+    "image": [
+      { "id": "Style", "label": "أسلوب Style" },
+      { "id": "Composition", "label": "تركيب Composition" },
+      { "id": "Lighting", "label": "إضاءة Lighting" },
+      { "id": "Realism", "label": "واقعية Realism" },
+      { "id": "Typography", "label": "Typography" },
+      { "id": "Branding", "label": "Branding" }
+    ],
+    "writing": [
+      { "id": "Tone", "label": "نبرة Tone" },
+      { "id": "Structure", "label": "هيكلة Structure" },
+      { "id": "Audience", "label": "جمهور Audience" },
+      { "id": "Clarity", "label": "وضوح Clarity" },
+      { "id": "Creativity", "label": "إبداع Creativity" },
+      { "id": "Style", "label": "Style" }
+    ],
+    "general": [
+      { "id": "Strategy", "label": "Strategy" },
+      { "id": "Planning", "label": "Planning" },
+      { "id": "Diagnostics", "label": "Diagnostics" },
+      { "id": "Safety", "label": "Safety" },
+      { "id": "Quality", "label": "Quality" },
+      { "id": "Communication", "label": "Communication" }
+    ]
+  },
+  "defaultsByMode": {
+    "coding": {
+      "language": "TypeScript / Next.js 15",
+      "focus": "Architecture",
+      "goal": "implementation"
+    },
+    "image": {
+      "language": "Figma / UI Design",
+      "focus": "Style",
+      "goal": "design"
+    },
+    "writing": {
+      "language": "English Writing / Docs & Blog",
+      "focus": "Tone",
+      "goal": "draft"
+    },
+    "general": {
+      "language": "General AI / Any Agent",
+      "focus": "Strategy",
+      "goal": "plan"
+    }
+  },
+  "quickTemplates": [
+    {
+      "id": "saas",
+      "title": "SaaS Landing Page",
+      "desc": "تصميم صفحة هبوط (Hero + تسعير + آراء العملاء) بمنطق مؤسسي.",
+      "prompt": "أريد إنشاء صفحة هبوط حديثة لمنصة SaaS تقدم خدمات إدارة المشاريع بالذكاء الاصطناعي. الصفحة يجب أن تحتوي على قسم Hero جذاب، جدول أسعار، وقسم لآراء العملاء مع نص عربي واضح وجذاب.",
+      "promptTypes": ["coding", "image", "general"]
+    },
+    {
+      "id": "mobile",
+      "title": "iOS Mobile App",
+      "desc": "واجهة iOS لتطبيق عملي مع تدفق واضح للمهام/التتبع.",
+      "prompt": "صمم لي واجهة تطبيق موبايل iOS لتوصيل الطعام الصحي. التركيز على تجربة مستخدم سلسة، واستخدام مكونات UI واضحة، مع صفحة تتبع الطلبات المباشرة (مع نص عربي).",
+      "promptTypes": ["coding", "image"]
+    },
+    {
+      "id": "api",
+      "title": "Backend API Engine",
+      "desc": "بنية API قوية مع أمان ومعالجة Webhooks.",
+      "prompt": "أحتاج إلى هيكلية API قوية بلغة Node.js و Express للتعامل مع عمليات الدفع الإلكتروني عبر Stripe. يجب مراعاة الأمان، معالجة الـ Webhooks، والتوثيق، مع اختبارات لضمان عدم حدوث انحدارات.",
+      "promptTypes": ["coding"]
+    },
+    {
+      "id": "cv",
+      "title": "Computer Vision",
+      "desc": "برومبت لتحليل صور/بيانات بتركيز على الدقة والتقرير.",
+      "prompt": "اكتب لي برومبت لنموذج ذكاء اصطناعي يقوم بتحليل الصور الطبية لاكتشاف الكسور في الأشعة السينية بدقة عالية مع تقديم تقرير مفصل وخطوات تحقق.",
+      "promptTypes": ["image", "coding"]
+    },
+    {
+      "id": "writing_blog",
+      "title": "Tech Blog Draft",
+      "desc": "مسودة مقال تقني واضح مع هيكلة وعينة تحقق.",
+      "prompt": "اكتب مسودة مقال تقني بالعربية يشرح فكرة هندسة الأوامر Prompt Engineering للذكاء الاصطناعي. المقال يجب أن يكون واضحًا، منظمًا بعناوين، ويحتوي مثالاً عمليًا لكيفية تحويل متطلبات عربية إلى برومبت إنجليزي جاهز للوكلاء.",
+      "promptTypes": ["writing", "general"]
+    },
+    {
+      "id": "general_plan",
+      "title": "Project Execution Plan",
+      "desc": "خطة تنفيذ عملية مع تحقق وقيود واضحة.",
+      "prompt": "أريد خطة تنفيذ لمشروع صغير من الصفر حتى الإطلاق. يجب أن تتضمن خطة مراحل، قائمة ملفات/تغييرات مقترحة، معايير نجاح، وخطوات تحقق واختبارات.",
+      "promptTypes": ["general"]
+    }
+  ]
+}
+
