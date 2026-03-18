@@ -177,7 +177,7 @@ OUTPUT STRUCTURE (JSON):
   "arabicSummary": "ملخص عربي يوضح تحسين Focus/Goal لنوع الكتابة المطلوب."
 }`.trim();
 
-  const codingSystemPrompt = `You are Vibe Coding Pro v3.0 — an independent engineering agent prompt designer.
+  const codingSystemPrompt = `You are Vibe Coding Pro — an independent engineering agent prompt designer.
 
 ${commonContext}
 
@@ -210,7 +210,7 @@ CRITICAL OUTPUT RULES:
 
 OUTPUT STRUCTURE (JSON):
 {
-  "englishPrompt": "The full Vibe Coding Pro v3.0 MASTER PROMPT in English (must include Phase 1/2/3/4 + Skill Units + verification).",
+  "englishPrompt": "The full Vibe Coding Pro MASTER PROMPT in English (must include Phase 1/2/3/4 + Skill Units + verification).",
   "arabicSummary": "Arabic verification/logic summary focused on what was optimized for this request."
 }`.trim();
 
@@ -257,10 +257,15 @@ async function handler(req, res) {
       return;
     }
 
-    const API_KEY = process.env.VITE_GEMINI_API_KEY || "";
+    // Public demo deployments typically use a free/shared Gemini API key.
+    // That key can hit rate limits, so self-hosters should set their own key:
+    // - `GEMINI_API_KEY` (recommended for server-side usage)
+    // - fallback: `VITE_GEMINI_API_KEY` (used in existing local/dev docs)
+    const API_KEY = process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY || "";
     if (!API_KEY) {
       res.status(500).json({
-        error: "Missing Gemini API key. Configure `VITE_GEMINI_API_KEY` in Vercel env vars."
+        error:
+          "Missing Gemini API key. Set `GEMINI_API_KEY` (recommended) or `VITE_GEMINI_API_KEY` in Vercel env vars."
       });
       return;
     }

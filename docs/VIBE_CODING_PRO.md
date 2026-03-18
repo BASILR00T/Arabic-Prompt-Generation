@@ -1,4 +1,4 @@
-# Vibe Coding Pro v3.0 (Vibe Workflow)
+# Vibe Coding Pro (Vibe Workflow)
 
 This project’s **Coding (Pro)** mode generates a **master prompt** (in English) that tells a downstream coding agent to behave like an *independent engineering agent* instead of a “command executor”.
 

@@ -25,9 +25,6 @@ void motion;
 /**
  * PROMPT ENGINEERING CONFIG
  */
-// Only used as a local dev fallback; production should call our serverless proxy.
-const API_KEY = import.meta.env.DEV ? (import.meta.env.VITE_GEMINI_API_KEY || "") : "";
-const BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models";
 
 // Quick templates moved to `src/config/vibeModeConfig.json`.
 
@@ -35,7 +32,7 @@ const fetchEnhancedPrompt = async (input, type, options) => {
   const trimmed = String(input || "").trim();
   if (!trimmed) throw new Error("Input is empty.");
 
-  // Preferred secure path: call our serverless proxy so Gemini API key never reaches the browser.
+  // Secure path: always call our serverless proxy so Gemini API key never reaches the browser.
   try {
     const resp = await fetch("/api/vibe/generate", {
       method: "POST",
@@ -60,110 +57,10 @@ const fetchEnhancedPrompt = async (input, type, options) => {
 
     return data;
   } catch (err) {
-    // Local/dev fallback (not for production): direct Gemini call.
-    // This keeps `npm run dev` usable when the serverless endpoints are not available locally.
-    if (!import.meta.env.DEV) throw err;
-  }
-
-  if (!API_KEY) {
     throw new Error(
-      "Missing Gemini API key for local fallback. Set `VITE_GEMINI_API_KEY` or use deployed endpoints."
+      "Failed to call /api/vibe/generate. For local testing, run the serverless endpoints (e.g. `vercel dev`) or deploy the API."
     );
   }
-
-  // ===== DEV fallback (serverless proxy unavailable locally) =====
-
-  const imageSystemPrompt = `You are "Vibe Image Prompt Pro". Convert Arabic user requirements into a single high-fidelity ENGLISH MASTER PROMPT for image/design generation.
-
-CONTEXT:
-- Technical Environment / Tooling: ${options.language}
-- Mode: Image Generation
-- Focus Area: ${options.focus}
-- Goal: ${options.goal}
-
-OUTPUT STRUCTURE (JSON):
-{
-  "englishPrompt": "Structured POSITIVE_PROMPT / NEGATIVE_PROMPT / TOOL_SETTINGS + any clarifying questions if STOP was triggered.",
-  "arabicSummary": "ملخص عربي موجز يوضح تحسين التركيز والهدف (Focus/Goal) لنسخة توليد الصور."
-}`;
-
-  const writingSystemPrompt = `You are "Vibe Writing Prompt Pro". Convert Arabic user requirements into a high-fidelity ENGLISH MASTER PROMPT for a writing agent.
-
-OUTPUT STRUCTURE (JSON):
-{
-  "englishPrompt": "A complete master prompt for writing.",
-  "arabicSummary": "ملخص عربي يوضح تحسين Focus/Goal لنوع الكتابة المطلوب."
-}`;
-
-  const generalSystemPrompt = `You are an elite Prompt Engineer. Convert Arabic requirements into a mode-appropriate ENGLISH MASTER PROMPT for any AI agent.
-
-OUTPUT STRUCTURE (JSON):
-{
-  "englishPrompt": "A structured master prompt (plan + verification).",
-  "arabicSummary": "ملخص عربي موجز يوضح ما تم تحسينه وفق Focus/Goal."
-}`;
-
-  const codingSystemPrompt = `You are Vibe Coding Pro v3.0.
-
-OUTPUT STRUCTURE (JSON):
-{
-  "englishPrompt": "The full Vibe Coding Pro v3.0 master prompt in English...",
-  "arabicSummary": "A brief Arabic verification/logic summary."
-}`;
-
-  const systemPrompt =
-    type === "coding"
-      ? codingSystemPrompt
-      : type === "image"
-        ? imageSystemPrompt
-        : type === "writing"
-          ? writingSystemPrompt
-          : generalSystemPrompt;
-
-  const models = ["gemini-2.5-flash-lite"];
-  let lastError = null;
-
-  for (const model of models) {
-    try {
-      const response = await fetch(
-        `${BASE_URL}/${model}:generateContent?key=${API_KEY}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: `User Requirements (Arabic): ${trimmed}` }] }],
-            systemInstruction: { parts: [{ text: systemPrompt }] },
-            generationConfig: { responseMimeType: "application/json", temperature: 0.7 }
-          })
-        }
-      );
-
-      const data = await response.json();
-      if (!response.ok) {
-        lastError = `[${model}] ${data.error?.message || response.statusText}`;
-        continue;
-      }
-
-      const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!text) continue;
-
-      const cleaned = String(text).replace(/```(?:json)?\\s*/g, "").replace(/```/g, "").trim();
-      const start = cleaned.indexOf("{");
-      const end = cleaned.lastIndexOf("}");
-      const jsonStr =
-        start >= 0 && end >= start ? cleaned.slice(start, end + 1) : cleaned;
-
-      const parsed = JSON.parse(jsonStr);
-      if (typeof parsed?.englishPrompt !== "string" || typeof parsed?.arabicSummary !== "string") {
-        throw new Error("JSON contract validation failed: expected {englishPrompt, arabicSummary} strings.");
-      }
-      return parsed;
-    } catch (e) {
-      lastError = e?.message || String(e);
-    }
-  }
-
-  throw new Error(lastError || "Neural connection failed");
 };
 
 /**
@@ -911,7 +808,7 @@ export default function App() {
         <div className="flex items-center gap-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
           <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500"></div> المحرك نشط</span>
           <span className="opacity-20">/</span>
-          <span>GEMINI 2.0 FLASH-LITE PRO EXTREME</span>
+          <span>Gemini 2.0 Flash-Lite</span>
         </div>
       </div>
 
@@ -1242,7 +1139,7 @@ export default function App() {
           { id: "GEMINI_PROMPT_CONTRACT", label: "عقد JSON لمخرجات Gemini", content: geminiContractDoc },
           { id: "TROUBLESHOOTING", label: "حل المشاكل", content: troubleshootingDoc },
           { id: "UX_GUIDE", label: "دليل الاستخدام", content: uxGuideDoc },
-          { id: "VIBE_CODING_PRO", label: "Vibe Coding Pro v3.0", content: vibeCodingProDoc }
+          { id: "VIBE_CODING_PRO", label: "Vibe Coding Pro", content: vibeCodingProDoc }
         ];
 
         const selectedDoc =
@@ -1302,7 +1199,7 @@ export default function App() {
 
                   <div
                     className="text-slate-200 text-sm leading-relaxed overflow-hidden custom-scrollbar max-h-[70vh] overflow-y-auto"
-                    dir="rtl"
+                    dir="auto"
                   >
                     <ReactMarkdown
                       components={{
@@ -1316,16 +1213,16 @@ export default function App() {
                           <h3 className="text-lg font-black mt-5 mb-3">{children}</h3>
                         ),
                         p: ({ children }) => (
-                          <p className="my-3 text-right">{children}</p>
+                          <p className="my-3 text-start">{children}</p>
                         ),
                         ul: ({ children }) => (
-                          <ul className="list-disc pr-5 my-3 text-right">{children}</ul>
+                          <ul className="list-disc pr-5 my-3 text-start">{children}</ul>
                         ),
                         ol: ({ children }) => (
-                          <ol className="list-decimal pr-5 my-3 text-right">{children}</ol>
+                          <ol className="list-decimal pr-5 my-3 text-start">{children}</ol>
                         ),
                         li: ({ children }) => (
-                          <li className="my-1 text-right">{children}</li>
+                          <li className="my-1 text-start">{children}</li>
                         ),
                         pre: ({ children }) => (
                           <pre
@@ -1431,7 +1328,7 @@ export default function App() {
 Role: You are a coding agent inside Cursor. Work inside this repository.
 Rules:
 1) Use the master prompt below as the controlling instruction.
-2) Follow the Vibe Coding Pro v3.0 4-phase workflow: Read → Plan → Ask (Clarify & Stop if needed) → Meta-Prompt Engineering + Execute.
+2) Follow the Vibe Coding Pro 4-phase workflow: Read → Plan → Ask (Clarify & Stop if needed) → Meta-Prompt Engineering + Execute.
 3) If you ask clarifying questions, ask first and do not start implementation until the user answers.
 4) After applying changes, run the verification commands/tests listed in the master prompt.
 5) Do NOT force Arabic UI/localization unless it is explicitly requested by the user.

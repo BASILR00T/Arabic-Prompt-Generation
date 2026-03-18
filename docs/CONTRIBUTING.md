@@ -20,13 +20,15 @@ npm install
 npm run dev
 ```
 
-إذا كنت ستستخدم توليد البرومبتات عبر Gemini، أضف ملف `.env.local`:
+إذا كنت ستستخدم توليد البرومبتات عبر Gemini، أضف ملف `.env.local` (للـ server-side proxy):
 
 ```bash
 VITE_GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-ملاحظة: في الإنتاج يتم استدعاء Gemini عبر المسار الخلفي `/api/vibe/generate` لتجنب كشف مفتاح الـ API في المتصفح.
+ملاحظة: واجهة الموقع تعتمد على المسار الخلفي `/api/vibe/generate` لتجنب كشف مفتاح الـ API في المتصفح.
+قد تستخدم النسخة العامة مفتاحًا مجانيًا/مشتركًا وقد تصل لحد الاستخدام، لذلك الأفضل ضبط `GEMINI_API_KEY` عند النشر.
 
 ### 2) قبل إنشاء أي تغيير
 

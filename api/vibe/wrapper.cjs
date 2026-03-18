@@ -14,7 +14,7 @@ function buildWrapper({ ide, masterPrompt }) {
 Role: You are a coding agent inside Cursor. Work inside this repository.
 Rules:
 1) Use the master prompt below as the controlling instruction.
-2) Follow the Vibe Coding Pro v3.0 4-phase workflow: Read → Plan → Ask (Clarify & Stop if needed) → Meta-Prompt Engineering + Execute.
+2) Follow the Vibe Coding Pro 4-phase workflow: Read → Plan → Ask (Clarify & Stop if needed) → Meta-Prompt Engineering + Execute.
 3) If you ask clarifying questions, ask first and do not start implementation until the user answers.
 4) After applying changes, run the verification commands/tests listed in the master prompt.
 5) Do NOT force Arabic UI/localization unless it is explicitly requested by the user.
