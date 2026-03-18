@@ -805,10 +805,16 @@ export default function App() {
           <TabButton active={promptType === 'general'} onClick={() => setPromptType('general')} icon={Languages}>عام</TabButton>
         </div>
 
-        <div className="flex items-center gap-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
-          <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500"></div> المحرك نشط</span>
-          <span className="opacity-20">/</span>
-          <span>Gemini 2.0 Flash-Lite</span>
+        <div className="flex flex-col items-start md:items-end gap-2">
+          <div className="flex items-center gap-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+            <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500"></div> المحرك نشط</span>
+            <span className="opacity-20">/</span>
+            <span>Gemini 2.0 Flash-Lite</span>
+          </div>
+          <p className="text-[9px] text-indigo-300/80 leading-relaxed text-right">
+            ملاحظة: النسخة العامة تستخدم Gemini API بالمستوى المجاني/المحدود وقد تصل لحد الاستخدام.
+            عند النشر استخدم مفتاحك الخاص عبر السيرفر لتفادي القيود.
+          </p>
         </div>
       </div>
 
